@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="shortcut icon" href="./img/favicon.svg" type="image/svg">
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Datamola chat</title>
 </head>
 
@@ -20,9 +20,8 @@
             <header class="header">
                 <div class="logo">
                     <a href="#!" class="logo_item">
-                        <img src="./img/Logo.png" alt="logo">
+                        <img src="img/Logo.png" alt="logo">
                     </a>
-
                 </div>
                 <div class="sign_in">
                     <a href="#!" class="sign_in-link">
@@ -45,8 +44,8 @@
 
                     <div class="users_online-search">
                         <div class="users_online-search_area">
-                            <input onfocus="this.value=''" onblur="this.value='Find by text...'"
-                                class="users_online-search_input" type="text" value="Find by text...">
+                            <input onfocus="this.value=''" onblur="this.value='Find by name...'"
+                                class="users_online-search_input" type="text" value="Find by name...">
                             <div class="users_online-search_underline"></div>
                         </div>
                     </div>
@@ -80,6 +79,7 @@
                             <div class="user_online-photo"></div>
                             <div class="user_online-name">Zlatan Ibragimovich</div>
                         </div>
+
                     </div>
                 </div>
 
@@ -103,8 +103,10 @@
                             </div>
                         </div>
                     </div>
-                    <div onclick="alert('Click!')" class="messages_download-button">
-                        <img src="/UI/img/Download messages button.png" alt="Download messages button">
+                    <div class="messages_download-button">
+                        <button onclick="alert('Click!')" class="messages_download-button_item">
+                            <img src="img/Download messages button.png" alt="Download messages button">
+                        </button>
                     </div>
                     <div class="messages_area">
                         <div class="messages_area-incoming">
@@ -183,16 +185,16 @@
                                         It is a long established fact that a reader will be distracted by the readable
                                         content of a
                                         <div class="message_buttons">
-                                            <div class="message_edit-button">
+                                            <button class="message_edit-button">
                                                 <span class="iconify" data-inline="false"
                                                     data-icon="ant-design:edit-filled"
                                                     style="color: #d89ff2; font-size: 16px;"></span>
-                                            </div>
-                                            <div class="message_delete-button">
+                                            </button>
+                                            <button class="message_delete-button">
                                                 <span class="iconify" data-inline="false"
                                                     data-icon="ant-design:delete-filled"
                                                     style="color: #d89ff2; font-size: 16px;"></span>
-                                            </div>
+                                            </button>
                                         </div>
                                         <div class="outgoing_item-message_date">01.10.2020</div>
                                     </div>
@@ -203,21 +205,19 @@
 
                     </div>
                     <div class="send_message">
-                        <div onclick="alert('Click!')" class="send_message-clip_button">
-                            <img src="/UI/img/Clip button.png" alt="Clip button">
-                        </div>
-                        <div onclick="alert('Click!')" class="send_message-send_button">
-                            <img src="/UI/img/Send button.png" alt="Send button">
-                        </div>
+                        <button onclick="alert('Click!')" class="send_message-clip_button">
+                            <img src="img/Clip button.png" alt="Clip button">
+                        </button>
+                        <button onclick="alert('Click!')" class="send_message-send_button">
+                            <img src="img/Send button.png" alt="Send button">
+                        </button>
                     </div>
-                    
+
                     <div class="send_message-form">
                         <div class="send_message-description">send to all</div>
-                        <input type="text" onblur="this.value=''">
+                        <input type="text">
                     </div>
                 </div>
-
-
             </section>
 
             <!-- Main content end -->
@@ -238,16 +238,10 @@
 
             <!-- Footer end -->
 
-
         </main>
     </div>
 
 
-
-
-
-
-    <script src="./index.js"></script>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 

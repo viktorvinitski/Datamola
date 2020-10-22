@@ -1,6 +1,13 @@
 body{
     font-family: 'Roboto', sans-serif;   
 }
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+}
 .container{
     max-width: 100%;
     height: 900px;
@@ -49,7 +56,6 @@ header{
     opacity: .5;
 }
 
-
 /* Header styles end */
 
 /* Main content styles end */
@@ -64,10 +70,7 @@ header{
     width: 100%;
     height: 648px;
     background-color: #410556;
-    flex: 3;
-}
-.sider:hover{
-    overflow: auto;
+    flex: 2;
 }
 .user_main{
     max-width: 259px;
@@ -117,7 +120,7 @@ header{
 .user_online{
     display: flex;
     height: 52px;
-    padding: 15px 0 0 40px;
+    padding: 15px 0 0 25px;
 }
 .user_online:hover{
     background-color: #9061A0;
@@ -147,7 +150,7 @@ header{
     width: 100%;
     height: 648px;
     background-color: #D6CCF3;
-    flex: 9;
+    flex: 10;
 }
 .messages_search{
     max-width: 998px;
@@ -164,6 +167,7 @@ header{
 .search_area{
     width: 136px;
     height: 27px;
+    margin-left: 10px;
 }
 .search_input{
      max-width: 130px;
@@ -185,11 +189,11 @@ header{
     height: 15px;
     margin: 0 auto;
 }
-.messages_download-button:hover{
+.messages_download-button_item:hover{
     cursor: pointer;
     opacity: .5;
 }
-.messages_download-button img{
+.messages_download-button_item img{
     width: 25px;
     height: 15px;
 }
@@ -204,12 +208,12 @@ header{
 }
 .messages_area-incoming_item{
     margin-top: 7px;
-    max-width: 380px;
+    max-width: 384px;
     height: 57px;
     display: flex;
 }
 .incoming_item-photo{
-    width: 36px;
+    width: 40px;
     height: 36px;
     border-radius: 50px;
     background-color: #E7DCDC;
@@ -239,12 +243,6 @@ header{
     text-align: right;
     font-size: 6px;
 }
-
-
-
-
-
-
 .messages_area-outgoing{
     max-width: 430px;
     padding-right: 30px;
@@ -296,36 +294,29 @@ header{
     color: #A64FEB;
     margin-top: -3px;
 }
-
-
-
-
-
-
-
 .send_message{
     /* padding: 0 20px 0 20px; */
     display: flex;
     justify-content: space-between;
 }
+.send_message-clip_button{
+    padding: 14px 0 0 25px;
+}
 .send_message-clip_button img{
     width: 26px;
     height: 26px;
-    margin: 14px 0 0 25px;
-}
-.send_message-clip_button img:hover,
-.send_message-send_button:hover{
-    opacity: .5;
-    cursor: pointer;
 }
 .send_message-send_button{
-    width: 26px;
-    height: 26px;
     padding: 12px 15px 0 0;
 }
 .send_message-send_button img{
     width: 26px;
     height: 26px;
+}
+.send_message-clip_button img:hover,
+.send_message-send_button:hover{
+    opacity: .5;
+    cursor: pointer;
 }
 .send_message-description{
     margin-left: 20px;
@@ -333,10 +324,10 @@ header{
     font-size: 14px;
 }
 .send_message-form{
-    max-width: 850px;
-    /* padding: 0px 15px 0 15px; */
+    max-width: 950px;
     margin: 0 60px 0 70px;
     margin-top: -57px;
+    box-sizing: border-box;
 }
 .send_message-form input{
     width: 100%;
@@ -352,7 +343,6 @@ header{
 .send_message-form input:focus{
     border: 3px solid #ac70c0;
 }
-
 
 /* Main content styles end */
 
@@ -408,3 +398,30 @@ header{
 }
 
 /* Footer styles end */
+
+
+
+@media screen and (max-width: 750px){
+    .container{
+        height: 850px;
+    }
+    .main{
+        height: 850px;
+    }
+    .sider{
+        display: none;
+    }
+    .search_areas{
+        padding-left: 50px;
+        justify-content: flex-start;
+        max-width: 430px;
+    }
+    .search_area{
+        margin-left: 10px;
+        width: 95px;
+    }
+    .search_area input{
+        font-size: 10px;
+        width: 100%;
+    }
+}
