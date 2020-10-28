@@ -23,12 +23,13 @@
                         <img src="img/Logo.png" alt="logo">
                     </a>
                 </div>
-                <div class="sign_in">
-                    <a href="#!" class="sign_in-link">
-                        <span class="iconify" data-inline="false" data-icon="clarity:sign-in-line"
-                            style="color: #ffffff; font-size: 28px;"></span>
-                    </a>
-                </div>
+                <a href="#!" class="sign_in-link">
+                    <span class="iconify" 
+                        data-inline="false" 
+                        data-icon="clarity:sign-in-line"
+                        style="color: #ffffff; font-size: 24px;"></span>
+                </a>
+
             </header>
 
             <!-- Header end -->
@@ -36,7 +37,12 @@
             <!-- Main content start -->
 
             <section class="main_messages">
-                <div class="sider">
+                <div id="sider" class="sider">
+                    <div class="close_button">
+                        <button onclick="closeUserMenu()" class="close_button-item">
+                            <img src="img/close_button.png" alt="Close button">
+                        </button>
+                    </div>
                     <div class="user_main">
                         <div class="user_photo"></div>
                         <div class="user_name">Viktor Vinitski</div>
@@ -77,14 +83,35 @@
                         </div>
                         <div class="user_online">
                             <div class="user_online-photo"></div>
-                            <div class="user_online-name">Zlatan Ibragimovich</div>
+                            <div class="user_online-name">Harry Maguire</div>
+                        </div>
+                        <div class="user_online">
+                            <div class="user_online-photo"></div>
+                            <div class="user_online-name">David De Gea</div>
+                        </div>
+                        <div class="user_online">
+                            <div class="user_online-photo"></div>
+                            <div class="user_online-name">Paul Pogba</div>
+                        </div>
+                        <div class="user_online">
+                            <div class="user_online-photo"></div>
+                            <div class="user_online-name">Donny van de Beek</div>
+                        </div>
+                        <div class="user_online">
+                            <div class="user_online-photo"></div>
+                            <div class="user_online-name">Ronaldinho</div>
                         </div>
 
                     </div>
                 </div>
 
-                <div class="messages">
+                <div id="messages" class="messages">
                     <div class="messages_search">
+                        <div class="messages_search-user_menu">
+                            <button onclick="openUserMenu()" class="user_menu-button">
+                                <img src="img/user_menu-button.png" alt="User menu button">
+                            </button>
+                        </div>
                         <div class="search_areas">
                             <div class="search_area">
                                 <input onfocus="this.value=''" onblur="this.value='Find by text...'"
@@ -121,50 +148,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="messages_area-incoming">
                             <div class="messages_area-incoming_item">
                                 <div class="incoming_item-photo"></div>
                                 <div class="incoming_item-message">
@@ -177,13 +162,80 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="messages_area-outgoing">
                             <div class="messages_area-outgoing_item">
                                 <div class="outgoing_item-message">
                                     <div class="outgoing_item-message_adressee">You</div>
                                     <div class="outgoing_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknow
                                         <div class="message_buttons">
                                             <button class="message_edit-button">
                                                 <span class="iconify" data-inline="false"
@@ -205,18 +257,20 @@
 
                     </div>
                     <div class="send_message">
+
                         <button onclick="alert('Click!')" class="send_message-clip_button">
                             <img src="img/Clip button.png" alt="Clip button">
                         </button>
+                        <div class="send_message-form">
+                            <div class="send_message-description">send to all</div>
+                            <input type="text">
+                        </div>
                         <button onclick="alert('Click!')" class="send_message-send_button">
                             <img src="img/Send button.png" alt="Send button">
                         </button>
                     </div>
 
-                    <div class="send_message-form">
-                        <div class="send_message-description">send to all</div>
-                        <input type="text">
-                    </div>
+
                 </div>
             </section>
 
@@ -228,8 +282,7 @@
                 <div class="author">
                     <div class="author_name">by Viktor Vinitski</div>
                     <a href="#!" class="email_link">
-                        <span class="iconify" data-inline="false" data-icon="system-uicons:mail"
-                            style="color: #ffffff; font-size: 30px;"></span>
+                        <span class="iconify" data-inline="false" data-icon="system-uicons:mail"></span>
                     </a>
                 </div>
                 <div class="chat_name">Conversations</div>
@@ -241,7 +294,7 @@
         </main>
     </div>
 
-
+    <script src="/js/index.js"></script>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 
