@@ -1,47 +1,51 @@
+body{
+    font-size: 16px;
+}
 .container{
     position: relative;
     width: 100%;
+    height: 100vh;
 }
 .button{
-    padding-top: 50px;
+    padding-top: 3.1rem;
     margin: 0 auto;
-    max-width: 200px;
-    height: 50px;
+    max-width: 14rem;
+    height: 3rem;
 }
 .main_button{
     background: rgb(65, 65, 202);
     color: white;
     width: 100%;
-    height: 50px;
-    border-radius: 3px;
+    height: 3rem;
+    border-radius: .3rem;
     padding: 0;
     border: none;
     margin: 0 auto;
 }
 .main_button:hover {
-    box-shadow: 0 0 10px rgb(70, 59, 170);
+    box-shadow: 0 0 .9rem rgb(70, 59, 170);
     transition: .4s;
 }
 .modal_area{
     position: absolute;
     width: 100%;
-    height: 610px;
+    height: 100%;
     background-color: #000000;
     opacity: 70%;
 }
 .close_modal{
-    width: 20px;
-    height: 20px;
+    width: 1.2rem;
+    height: 1.2rem;
     background: url('https://api.iconify.design/clarity:window-close-line.svg') no-repeat center center / contain;
 }
 .modal{
     box-sizing: border-box;
-    max-width: 600px;
-    height: 400px;
+    max-width: 35rem;
+    height: 25rem;
     background-color: white;
-    margin: 100px auto 0 auto;
-    border-radius: 5px;
-    padding: 50px 50px 30px 50px;
+    margin: 6.2rem auto 0 auto;
+    border-radius: .3rem;
+    padding: 3.2rem 3.2rem 2rem 3.2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,41 +55,41 @@
 }
 .close_modal{
     position: absolute;
-    right: -30px;
-    top: -30px;
+    right: -2rem;
+    top: -2rem;
     border: 0;
 }
 .close_modal:hover{
     opacity: .5;
 }
 h1{
-    font-size: 35px;
+    font-size: 2.2rem;
     font-weight: bold;
     color: #000;
 }
 .underline{
-    margin-top: 25px;
+    margin-top: 1.8rem;
     width: 100%;
-    height: 2px;
+    height: .15rem;
     background-color: grey;
-    border-radius: 2px;
+    border-radius: .15rem;
 }
 h3{
-    margin-top: 20px;
+    margin-top: 1.3rem;
     color: #000000;
 }
 .modal_button{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 .ok{
     background:  rgb(8, 8, 145);
     color: white;
-    width: 50px;
-    height: 30px;
+    width: 3.1rem;
+    height: 1.9rem;
     padding: 0;
     border: 0;
-    border-radius: 2px;
+    border-radius: .15rem;
     margin-left: auto;
 }
 .ok:hover{
