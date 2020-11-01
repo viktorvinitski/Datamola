@@ -180,9 +180,6 @@
         if (text) {
             result = result.filter(item => item.text.includes(text));
         }
-        if(typeof end === 'undefined'){
-            end = 10
-        }
         return result
             .sort((a, b) => a.createdAt - b.createdAt)
             .slice(start, end);
@@ -197,7 +194,7 @@
         return str && typeof str === 'string';
     }
 
-    function validateMessage({ id, text, createdAt, author, isPersonal }) {
+    function validateMessage({ id, text, createdAt, author}) {
         return isNonEmptyString(id) && isNonEmptyString(text) && isNonEmptyString(author) && text.length <= 200 && createdAt instanceof Date;
     }
 
