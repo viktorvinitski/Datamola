@@ -1,159 +1,162 @@
 (function () {
-    let messages = [
+    let count = 1;
+    let idGenerator = () => (count++).toString()
+
+    const messages = [
         {
-            id: '1',
-            text: 'Lorem Ipsum is simply dummy text of the printing and ',
+            id: idGenerator(),
+            text: '111',
             createdAt: new Date('1995-12-17T03:04:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Cristiano Ronaldo'
         },
         {
-            id: '2',
-            text: 'Lorem Ipsum is simply ',
+            id: idGenerator(),
+            text: '222',
             createdAt: new Date('1995-12-17T03:05:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Leo Messi'
         },
         {
-            id: '3',
-            text: ' dummy text of the printing and typesetting industry. Lorem Ipsum has',
+            id: idGenerator(),
+            text: '333',
             createdAt: new Date('1995-12-17T03:06:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Bruno Fernandes'
         },
         {
-            id: '4',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ',
+            id: idGenerator(),
+            text: '444',
             createdAt: new Date('1995-12-17T03:07:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Harry Kane'
         },
         {
-            id: '5',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsu',
+            id: idGenerator(),
+            text: '555',
             createdAt: new Date('1995-12-17T03:08:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Dele Alli'
         },
         {
-            id: '6',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem I',
+            id: idGenerator(),
+            text: '666',
             createdAt: new Date('1995-12-17T03:09:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Wayne Rooney'
         },
         {
-            id: '7',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            id: idGenerator(),
+            text: '777',
             createdAt: new Date('1995-12-17T03:10:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Harry Maguire'
         },
         {
-            id: '8',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ips',
+            id: idGenerator(),
+            text: '888',
             createdAt: new Date('1995-12-17T03:11:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'David De Gea'
         },
         {
-            id: '9',
-            text: 'Lorem Ipsum is simply dummy ',
+            id: idGenerator(),
+            text: '999',
             createdAt: new Date('1995-12-17T03:12:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Paul Pogba'
         },
         {
-            id: '10',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting ',
+            id: idGenerator(),
+            text: '101010',
             createdAt: new Date('1995-12-17T03:13:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Donny van de Beek'
         },
         {
-            id: '11',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has!',
+            id: idGenerator(),
+            text: '111111',
             createdAt: new Date('1995-12-17T03:14:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Ronaldinho'
         },
         {
-            id: '12',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem !',
+            id: idGenerator(),
+            text: '121212',
             createdAt: new Date('1995-12-17T03:15:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Nemanja Matic'
         },
         {
-            id: '13',
-            text: 'Lorem Ipsum is simply dummy text of the printing!',
+            id: idGenerator(),
+            text: '131313',
             createdAt: new Date('1995-12-17T03:16:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Luke Shaw'
         },
         {
-            id: '14',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lor!',
+            id: idGenerator(),
+            text: '141414',
             createdAt: new Date('1995-12-17T03:17:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Anthony Martial'
         },
         {
-            id: '15',
-            text: 'Lorem Ipsum is simply dummy text of !',
+            id: idGenerator(),
+            text: '151515',
             createdAt: new Date('1995-12-17T03:18:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Dan James'
         },
         {
-            id: '16',
-            text: 'Lorem Ipsum is simply dummy!',
+            id: idGenerator(),
+            text: '161616',
             createdAt: new Date('1995-12-17T03:19:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Mason Greenwood'
         },
         {
-            id: '17',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industr!',
+            id: idGenerator(),
+            text: '171717',
             createdAt: new Date('1995-12-17T03:20:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Edinson Cavani'
         },
         {
-            id: '18',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting !',
+            id: idGenerator(),
+            text: '181818',
             createdAt: new Date('1995-12-17T03:21:00'),
             author: 'Viktor Vinitski',
             isPersonal: true,
             to: 'Odion Ighalo'
         },
         {
-            id: '19',
-            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting in!',
+            id: idGenerator(),
+            text: '191919',
             createdAt: new Date('1995-12-17T03:22:00'),
             author: 'Viktor Vinitskiy',
             isPersonal: true,
             to: 'Zlatan Ibragimovich'
         },
         {
-            id: '20',
+            id: idGenerator(),
             text: 'Lorem Ipsum is simply dummy text of the printing a!',
             createdAt: new Date('1995-12-17T03:23:00'),
             author: 'Vik Vinitski',
@@ -163,13 +166,13 @@
     ]
 
     function getMessages(
-        start,
-        end,
+        skip = 0,
+        top = 10,
         { author, dateFrom, dateTo, text } = {}
     ) {
         let result = [...messages];
         if (author) {
-            result = result.filter(item => item.author.includes(author));
+            result = result.filter(item => item.author.toLowerCase().includes(author.toLowerCase()));
         }
         if (dateFrom) {
             result = result.filter(item => item.createdAt >= dateFrom);
@@ -178,14 +181,14 @@
             result = result.filter(item => item.createdAt <= dateTo);
         }
         if (text) {
-            result = result.filter(item => item.text.includes(text));
+            result = result.filter(item => item.text.toLowerCase().includes(text.toLowerCase()));
         }
         return result
             .sort((a, b) => a.createdAt - b.createdAt)
-            .slice(start, end);
+            .slice(skip, skip + top);
     }
 
-    function getMessageById(id){
+    function getMessage(id) {
         let messageId = [...messages];
         return messageId.filter(item => item.id === id);
     }
@@ -194,12 +197,20 @@
         return str && typeof str === 'string';
     }
 
-    function validateMessage({ id, text, createdAt, author}) {
-        return isNonEmptyString(id) && isNonEmptyString(text) && isNonEmptyString(author) && text.length <= 200 && createdAt instanceof Date;
+    function validateMessage({ id, text, createdAt, author }) {
+        return isNonEmptyString(id)
+             && isNonEmptyString(text) 
+             && isNonEmptyString(author) 
+             && text.length <= 200 
+             && createdAt instanceof Date;
     }
 
-    function addMessage(msg) {
+    function addMessage(msg, text) {
         if (validateMessage(msg)) {
+            msg.id = idGenerator();
+            msg.author = 'Viktor Vinitski';
+            msg.createdAt = new Date();
+            msg.text = text;
             messages.push(msg);
             return true;
         }
@@ -220,34 +231,63 @@
     }
 
     function removeMessage(id) {
-        messages = messages.filter(item => item.id !== id);
+        let index = messages.findIndex(item => item.id === id)
+        if (index === -1) {
+            return false
+        }
+        messages.splice(index, 1)
+        return true
     }
 
-    console.log(getMessageById('15'))
+
+console.log('getMsgById', getMessage('15')) //Получить сообщение по ID
 
 
-    console.log(getMessages(0, 20, filterConfig = {
-        author: '',
-        dateFrom: new Date('1995-12-17T03:03:00'),
-        dateTo: new Date('1995-12-17T03:10:00'),
-        text: ''
-    }))
+console.log('getMsg', getMessages(10, 20, filterConfig = {
+    author: '',
+    dateFrom: new Date('1995-12-17T03:04:00'),
+    dateTo: new Date('1995-12-17T03:23:00'),
+    text: ''
+})) //Получить массив сообщений с параметрами skip, top, filterConfig
 
-    console.log(addMessage({
-        id: '21',
-        text: 'Lorem Ipsum is simply dummy text of the printing a!',
-        createdAt: new Date('1995-12-17T03:23:00'),
-        author: 'Vik Vinitski',
-        isPersonal: true,
-        to: 'Marcus Rash'
-    }
-    ))
 
-    console.log(editMessage('3', { text: 'www' }))
-    console.log(messages);
+console.log('addMsg', addMessage({
+    id: idGenerator(),
+    text: ' ',
+    createdAt: new Date(),
+    author: ' '
+}, 'asdasdasdas'))
+console.log('addMsg', addMessage({
+    id: idGenerator(),
+    text: ' ',
+    createdAt: new Date(),
+    author: ' '
+}, 'asdasdasdas'))
+console.log('addMsg', addMessage({
+    id: idGenerator(),
+    text: ' ',
+    createdAt: new Date(),
+    author: ' '
+}, 'asdasdasdas'))
+console.log(messages);
+ // Добавить сообщение с определенным текстом
 
-    console.log(removeMessage('17'))
-    console.log(removeMessage('21'));
-    console.log(messages);
+console.log('editMsg', editMessage('5', { text: 'www' }))// Изменить сообщение
+console.log(messages);
+
+console.log('removeMsg', removeMessage('17'))// Удалить сообщение
+console.log(messages);
+
+console.log('addMessagesByAuthor', getMessages(0,25, {author: 'Vik'}));//Получить сообщения по автору
+
+return {
+    getMessages,
+    getMessage,
+    validateMessage,
+    addMessage,
+    editMessage,
+    removeMessage
+}
 
 }());
+
