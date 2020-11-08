@@ -368,6 +368,7 @@ button {
 .send_message-send_button:hover{
     opacity: .5;
     cursor: pointer;
+    
 }
 .send_message-description{
     margin-left: 1.2rem;
