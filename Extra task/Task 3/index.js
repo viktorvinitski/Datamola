@@ -1,15 +1,17 @@
-function substrSum(arr) {
-    let sum = 0; 
-    for (let i = 0; i < arr.length; i++) {
-      
-      let sumStart = 0;
-      for (let j = i; j < arr.length; j++) {
-        sumStart += arr[j];
-        sum = Math.max(sum, sumStart);
-      }
-    }
+function getMaxSubSum(arr = [-1, 2, 3, -9]) {
+	let maxSumm = 0, partialSumm = 0;
   
-    return sum;
-  }
+  for (let i = 0; i < arr.length; i++) {
+  	partialSumm = partialSumm + arr[i];
 
-  console.log(substrSum([-1, 23, 19, -7]));
+    maxSumm = Math.max(maxSumm, partialSumm);
+    
+    if (partialSumm < 0) {
+    	partialSumm = 0;
+    }
+  }
+  
+  return maxSumm;
+}
+
+console.log( getMaxSubSum([-1, 2, 3, -9]) );
