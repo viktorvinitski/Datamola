@@ -17,7 +17,7 @@
 
             <!-- Header start -->
 
-            <header class="header">
+            <header id="header" class="header">
                 <div class="logo">
                     <a href="#!" class="logo_item">
                         <img src="img/Logo.png" alt="logo">
@@ -29,7 +29,6 @@
                         data-icon="clarity:sign-in-line"
                         style="color: #ffffff; font-size: 24px;"></span>
                 </a>
-
             </header>
 
             <!-- Header end -->
@@ -43,11 +42,11 @@
                             <img src="img/close_button.png" alt="Close button">
                         </button>
                     </div>
-                    <div class="user_main">
+                    <div id="header-view" class="user_main">
                         <div class="user_photo"></div>
-                        <div class="user_name">Viktor Vinitski</div>
+                        <div id="user_name" class="user_name"></div>
                     </div>
-
+                    
                     <div class="users_online-search">
                         <div class="users_online-search_area">
                             <input onfocus="this.value=''" onblur="this.value='Find by name...'"
@@ -55,9 +54,13 @@
                             <div class="users_online-search_underline"></div>
                         </div>
                     </div>
+                    <div class="users_buttons">
+                        <button onclick="showAllUsers()" class="user_button">All users</button>
+                        <button onclick="showActiveUsers()" class="user_button">Online users</button>
+                    </div>
 
-                    <div class="users_online">
-                        <div class="user_online">
+                    <div id="users" class="users_online">
+                        <!-- <div class="user_online">
                             <div class="user_online-photo"></div>
                             <div class="user_online-name">Cristiano Ronaldo</div>
                         </div>
@@ -100,13 +103,13 @@
                         <div class="user_online">
                             <div class="user_online-photo"></div>
                             <div class="user_online-name">Ronaldinho</div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
 
                 <div id="messages" class="messages">
-                    <div class="messages_search">
+                    <div id="filter" class="messages_search">
                         <div class="messages_search-user_menu">
                             <button onclick="openUserMenu()" class="user_menu-button">
                                 <img src="img/user_menu-button.png" alt="User menu button">
@@ -135,7 +138,20 @@
                             <img src="img/Download messages button.png" alt="Download messages button">
                         </button>
                     </div>
-                    <div class="messages_area">
+                    <div id="messages_area" class="messages_area">
+                        <!-- <div class="messages_area-incoming">
+                            <div class="messages_area-incoming_item">
+                                <div class="incoming_item-photo"></div>
+                                <div class="incoming_item-message">
+                                    <div class="incoming_item-message_adressee">Leo Messi</div>
+                                    <div class="incoming_item-message_text">
+                                        It is a long established fact that a reader will be distracted by the readable
+                                        content of a
+                                        <div class="incoming_item-message_date">01.10.2020</div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- </div>
                         <div class="messages_area-incoming">
                             <div class="messages_area-incoming_item">
                                 <div class="incoming_item-photo"></div>
@@ -213,22 +229,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
 
-                        <div class="messages_area-outgoing">
+                        <!-- <div class="messages_area-outgoing">
                             <div class="messages_area-outgoing_item">
                                 <div class="outgoing_item-message">
                                     <div class="outgoing_item-message_adressee">You</div>
@@ -253,7 +256,7 @@
                                 </div>
                                 <div class="outgoing_item-photo"></div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div class="send_message">
