@@ -230,7 +230,7 @@ class Message {
 }
 class MessageModel {
   constructor() {
-    this._user = "Viktor Vinitski";
+    // this._user = "Viktor Vinitski";
     this.restore();
   }
   restore() {
