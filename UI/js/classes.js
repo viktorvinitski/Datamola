@@ -564,14 +564,14 @@ const addNewMessage = () => {
 //   showMessages(skip, top)
 // }
 
-function onPageLoad(login) {
+function onPageLoad() {
   showActiveUsers();
   showAllUsers();
   showMessages(0, 25);
-  setCurrentUser(login);
+  setCurrentUser('Viktor Vinitski');
 }
 
-onPageLoad('Viktor Vinitski')
+onPageLoad()
 
 
 function userRegistration(){
