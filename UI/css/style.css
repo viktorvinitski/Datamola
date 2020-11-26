@@ -73,13 +73,89 @@ button {
     opacity: .6;
     transition: .5s;
 }
-.sign_in:hover{
+.sign_in-link:hover{
     opacity: .5;
+}
+.sign_link:hover,
+.register_button:hover{
+    background-color: #ED5D5D;;
 }
 
 /* Header styles end */
 
 /* Main content styles end */
+
+.sign_menu{
+    max-width: 78.5rem;
+    height: 80%; 
+    background: linear-gradient(103.15deg, rgba(0, 0, 0, 0.1) 11.03%, rgba(249, 249, 249, 0.1) 102.18%);
+    padding: 0 2rem;
+    box-sizing: border-box;
+    display: none;  
+    margin: 0 auto;  
+}
+.form_wrapper{
+    width: 30rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sign_menu input,
+.register_menu input{
+    width: 100%;
+    height: 2.5rem;
+    background-color: #D6CCF3;
+    border-radius: 3rem;
+    border: none;
+    margin: 0 auto;
+    margin-top: 2rem;
+    padding: 1rem 1rem 1rem 2rem;
+    box-sizing: border-box;
+}
+.sign_button{
+    width: 50%;
+    height: 2.6rem;
+    background-color: #E89F5C;
+    border-radius: 3rem;
+    margin: 0 auto;
+    margin-top: 1.9rem;
+}
+.sign_button:hover{
+    background-color: #e68831;;
+}
+.sign_link{
+    width: 40%;
+    height: 19px;
+    background: #DF8383;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.register_menu{
+    max-width: 78.5rem;
+    height: 80%; 
+    background: linear-gradient(103.15deg, rgba(0, 0, 0, 0.1) 11.03%, rgba(249, 249, 249, 0.1) 102.18%);
+    align-self: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    display: none;
+}
+.register_button{
+    width: 50%;
+    height: 2.8rem;
+    background-color: #DF8383;
+    border-radius: 3rem;
+    margin: 0 auto;
+    margin-top: 1.9rem;
+}
+.return_button:hover{
+    opacity: .5;
+}
 
 .main_messages{
     margin: 0 auto;
@@ -122,6 +198,12 @@ button {
     height: 2.6rem;
     background-color: rgb(165, 165, 165);
     border-radius: 50%;
+    color: white;
+    display: flex;
+    font-size: 16px;
+    letter-spacing: -1.5px;
+    justify-content: center;
+    align-items: center;
 }
 .users_buttons{
     display: flex;
@@ -191,6 +273,12 @@ button {
     height: 1.8rem;
     background-color: rgb(165, 165, 165);
     border-radius: 50%;
+    color: white;
+    display: flex;
+    font-size: 13px;
+    letter-spacing: -1.5px;
+    justify-content: center;
+    align-items: center;
 }
 .user_online-name{
     width: 8rem;
@@ -244,9 +332,13 @@ button {
      padding: .1rem;
      font-size: .7rem;
      background-color: #8B4EA0;
-     border:0;
      color: #e2bef3;
+     border:0;
+     
      box-sizing: border-box;
+}
+.search_input::placeholder{
+    color: #e2bef3;
 }
 .search_underline{
     width: 100%;
@@ -276,6 +368,7 @@ button {
     padding: .3rem .9rem .3rem .9rem;
     overflow-y: scroll;
     box-shadow: 0 0 2.5rem rgba(0, 0, 0, .05) inset; 
+    
 }
 .messages_area-incoming{
     max-width: 23.7rem;
@@ -290,6 +383,12 @@ button {
     height: 2.1rem;
     border-radius: 50%;
     background-color: #E7DCDC;
+    color: rgb(97, 30, 30);
+    display: flex;
+    font-size: 13px;
+    letter-spacing: -1.5px;
+    justify-content: center;
+    align-items: center;
 }
 .incoming_item-message{
     margin-left: .5rem;
@@ -333,6 +432,12 @@ button {
     border-radius: 50%;
     background-color: #E7DCDC;
     margin-left: .6rem;
+    color: rgb(97, 30, 30);
+    display: flex;
+    font-size: 13px;
+    letter-spacing: -1.5px;
+    justify-content: center;
+    align-items: center;
 }
 .outgoing_item-message_adressee{
     font-size: .6rem;
