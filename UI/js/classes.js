@@ -1,4 +1,5 @@
 "use strict";
+const MESSAGES_LOCALSTORAGE_KEY = 'messages'
 let count = 1;
 const idGenerator = () => (count++).toString();
 const date = `${new Date().toLocaleDateString()} ${new Date()
@@ -28,7 +29,16 @@ const messages = [
     text:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     createdAt: date,
-    author: "Bruno Fernandes",
+    author: "Cristiano Ronaldo",
+    isPersonal: true,
+    to: "Viktor Vinitski",
+  },
+  {
+    id: idGenerator(),
+    text:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    createdAt: date,
+    author: "Cristiano Ronaldo",
     isPersonal: true,
     to: "Viktor Vinitski",
   },
@@ -39,16 +49,7 @@ const messages = [
     createdAt: date,
     author: "Viktor Vinitski",
     isPersonal: true,
-    to: "Harry Kane",
-  },
-  {
-    id: idGenerator(),
-    text:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    createdAt: date,
-    author: "Viktor Vinitski",
-    isPersonal: true,
-    to: "Dele Alli",
+    to: "Cristiano Ronaldo",
   },
   {
     id: idGenerator(),
@@ -186,6 +187,17 @@ const messages = [
     to: "Marcus Rashford",
   },
 ];
+const registerUsersList = []
+const nameInPhoto = (name) => {
+  return name
+    .split("")
+    .filter((item) => item === item.toUpperCase())
+    .join("");
+};
+const isNonEmptyString = (str) => {
+  return str && typeof str === "string";
+};
+
 
 class Message {
   constructor({ id, text, createdAt, to, isPersonal, author }) {
@@ -195,6 +207,16 @@ class Message {
       (this._author = author),
       (this.isPersonal = isPersonal),
       (this.to = to);
+  }
+  toJSON(){
+    return {
+      id: this.id,
+      text: this.text,
+      createdAt: this.createdAt,
+      author: this.author,
+      isPersonal: this.isPersonal,
+      to: this.to
+    }
   }
   get id() {
     return this._id;
@@ -206,13 +228,25 @@ class Message {
     return this._createdAt;
   }
 }
-
-function isNonEmptyString(str) {
-  return str && typeof str === "string";
-}
 class MessageModel {
-  constructor(msgs = []) {
-    this._messages = msgs;
+  constructor() {
+    this._user = "Viktor Vinitski";
+    this.restore();
+  }
+  restore() {
+    const rawMessages = JSON.parse(
+      localStorage.getItem(MESSAGES_LOCALSTORAGE_KEY)
+    );
+    this._messages = rawMessages.map((item) => new Message(item));
+  }
+  save() {
+    localStorage.setItem(
+      MESSAGES_LOCALSTORAGE_KEY,
+      JSON.stringify(this._messages)
+    );
+  }
+  getUser() {
+    return this._user;
   }
   setUser(user) {
     this._user = user;
@@ -222,7 +256,8 @@ class MessageModel {
   }
   getPage(skip = 0, top = 10, { author, dateFrom, dateTo, text } = {}) {
     let result = this._messages.filter(
-      (item) => item.author === this._user || item.author === this._companion
+      (item) =>
+        item.author === this.getUser() || item.author === this._companion
     );
     if (author) {
       result = result.filter((item) =>
@@ -242,7 +277,7 @@ class MessageModel {
     }
     return result
       .sort((a, b) => a.createdAt - b.createdAt)
-      .slice(skip, skip + top);
+      .slice(skip, skip + top)
   }
   get(id) {
     return this._messages.find((item) => item.id === id);
@@ -253,28 +288,35 @@ class MessageModel {
       msg.createdAt = date;
       msg.author = this._user;
       this._messages.push(new Message(msg));
+      this.save();
       return true;
     }
     return false;
   }
   edit(id, msg) {
-    let index = this._messages.findIndex((item) => item.id === id);
+    let index = this._messages.findIndex((item) => +item.id === id);
     if (index === -1 || !MessageModel.validateFields(msg)) {
       return false;
     }
-    if (this._messages[index].author === this._user) {
-      Object.assign(this._messages[index], msg);
+    let newMsg = prompt("Message", msg);
+    if (newMsg === null) {
+      return msg;
+    }
+    if (this._messages[index].author === this.getUser()) {
+      this._messages[index].text = newMsg;
+      this.save();
       return true;
     }
     return false;
   }
   remove(id) {
-    let index = this._messages.findIndex((item) => item.id === id);
+    let index = this._messages.findIndex((item) => +item.id === id);
     if (index === -1) {
       return false;
     }
-    if (this._messages[index].author === this._user) {
+    if (this._messages[index].author === this.getUser()) {
       this._messages.splice(index, 1);
+      this.save();
       return true;
     }
     return false;
@@ -298,7 +340,8 @@ class MessageModel {
     return notValidMessages;
   }
   clear() {
-    return (this._messages = []);
+    this._messages = [];
+    this.save();
   }
 }
 
@@ -320,7 +363,7 @@ class HeaderView {
       this.container = document.getElementById(this.containerId);
     }
     this.container.innerHTML = `
-        <div class="user_photo"></div>
+        <div class="user_photo">${nameInPhoto(currentUser)}</div>
         <div id="user_name" class="user_name">${currentUser}</div>  
       `;
   }
@@ -338,7 +381,7 @@ class MessagesView {
       .map((msg) => this.getMessageHTML(msg))
       .join("");
   }
-  getMessageHTML({ text, author, createdAt, to }) {
+  getMessageHTML({ text, author, createdAt, to, id }) {
     if (author === "Viktor Vinitski") {
       return `
           <div class="messages_area-outgoing">
@@ -348,12 +391,12 @@ class MessagesView {
                   <div class="outgoing_item-message_text">
                       ${text}
                       <div class="message_buttons">
-                          <button class="message_edit-button">
+                          <button onclick="editMessage(${id}, '${text}')"  class="message_edit-button">
                               <span class="iconify" data-inline="false"
                                   data-icon="ant-design:edit-filled"
                                   style="color: #d89ff2; font-size: 16px;"></span>
                           </button>
-                          <button class="message_delete-button">
+                          <button onclick='removeMessage(${id})' class="message_delete-button">
                               <span class="iconify" data-inline="false"
                                   data-icon="ant-design:delete-filled"
                                   style="color: #d89ff2; font-size: 16px;"></span>
@@ -362,7 +405,7 @@ class MessagesView {
                       <div class="outgoing_item-message_date">${createdAt}</div>
                   </div>
               </div>
-              <div class="outgoing_item-photo"></div>
+              <div class="outgoing_item-photo">${nameInPhoto(author)}</div>
           </div>
       </div>
           `;
@@ -371,7 +414,7 @@ class MessagesView {
     return `
       <div class="messages_area-incoming">
       <div class="messages_area-incoming_item">
-          <div class="incoming_item-photo"></div>
+          <div class="incoming_item-photo">${nameInPhoto(author)}</div>
           <div class="incoming_item-message">
               <div class="incoming_item-message_adressee">${author}</div>
               <div class="incoming_item-message_text">
@@ -400,7 +443,7 @@ class ActiveUsersView {
   getUsersHTML(name) {
     return `
       <div class="user_online">
-      <div class="user_online-photo"></div>
+      <div class="user_online-photo">${nameInPhoto(name)}</div>
       <div class="user_online-name">${name}</div>
         </div>
         `;
@@ -422,14 +465,23 @@ class PersonalUsersView {
   getUsersHTML(name) {
     return `
       <div class="user_online">
-      <div class="user_online-photo"></div>
+      <div class="user_online-photo">${nameInPhoto(name)}</div>
       <div class="user_online-name">${name}</div>
         </div>
         `;
   }
 }
 
-const messageList = new MessageModel(messages.map((item) => new Message(item)));
+const initLocalStorage = () => {
+  const messagesData = localStorage.getItem(MESSAGES_LOCALSTORAGE_KEY)
+  
+  if(!messagesData){
+    localStorage.setItem(MESSAGES_LOCALSTORAGE_KEY, JSON.stringify(messages))
+  }
+}
+initLocalStorage()
+
+const messageList = new MessageModel();
 const userList = new UserList(
   [
     "Cristiano Ronaldo",
@@ -443,8 +495,15 @@ const userList = new UserList(
     "Paul Pogba",
     "Donny van de Beek",
     "Ronaldinho",
+    "Anthony Martial",
   ],
-  ["Bruno Fernandes", "Harry Kane","Ronaldinho","Paul Pogba"]
+  [
+    "Bruno Fernandes",
+    "Harry Kane",
+    "Ronaldinho",
+    "Paul Pogba",
+    "Anthony Martial",
+  ]
 );
 
 const headerView = new HeaderView("header-view");
@@ -452,48 +511,96 @@ const messagesView = new MessagesView("messages_area");
 const activeUsers = new ActiveUsersView("users");
 const allUsers = new PersonalUsersView("users");
 
-function setCurrentUser(user) {
+const setCurrentUser = (user) => {
   messageList.setUser(user);
   headerView.display({ currentUser: user });
-}
+};
 
-function showMessages(skip, top, { author, dateFrom, dateTo, text } = {}) {
+const showMessages = (skip, top, { author, dateFrom, dateTo, text } = {}) => {
   messageList.setCompanion("Cristiano Ronaldo");
-  messageList.setUser("Viktor Vinitski");
   let msgs = messageList.getPage(skip, top, { author, dateFrom, dateTo, text });
   messagesView.display(msgs);
-}
+};
 
-function showAllUsers() {
+const showAllUsers = () => {
   allUsers.display();
-}
+};
 
-function showActiveUsers() {
+const showActiveUsers = () => {
   activeUsers.display();
-}
+};
 
-function addMessage(msg) {
-  messageList.setUser("Viktor Vinitski");
+const addMessage = (msg) => {
   messageList.add(msg);
   showMessages(0, 20);
-}
+};
 
-function editMessage(id, msg) {
-  messageList.setUser("Viktor Vinitski");
+const editMessage = (id, msg) => {
   messageList.edit(id, msg);
   showMessages(0, 20);
-}
+};
 
-function removeMessage(id) {
-  messageList.setUser("Viktor Vinitski");
+const removeMessage = (id) => {
   messageList.remove(id);
   showMessages(0, 20);
+};
+
+const activateFilter = () => {
+  let text = document.getElementById('findByText').value;
+  let author = document.getElementById('findByUsername').value;
+  let createdAt = document.getElementById('findByDate').value;
+  return showMessages(0,20, {text, author, createdAt})
 }
 
-showActiveUsers(); // Показать активных пользователей
-showAllUsers(); // Показать всех пользователей
-setCurrentUser("Viktor Vinitski"); // Отобразить текущего пользователя
-addMessage({ text: "How are you?" }); // Добавить сообщение
-editMessage("13", { text: "Hello!" }); // Изменить сообщение по ID
-removeMessage("14"); // Удалить сообщение по ID
-showMessages(0, 20); // Показать список всех сообщений
+const addNewMessage = () => {
+  let newMessage = document.getElementById('newMessage').value;
+  addMessage({ text: newMessage })
+  showMessages(0,30)
+  document.getElementById('newMessage').value = ''
+  let messageArea = document.getElementById('messages_area');
+  messageArea.scrollTop = messageArea.scrollHeight
+}
+// const loadMessages = (skip, top) => {
+//   showMessages(skip, top)
+// }
+
+function onPageLoad(login) {
+  showActiveUsers();
+  showAllUsers();
+  showMessages(0, 25);
+  setCurrentUser(login);
+}
+
+onPageLoad('Viktor Vinitski')
+
+
+function userRegistration(){
+  const loginFieldRegistration = document.getElementById('registerMenuLogin').value
+  const passwordFieldRegistration = document.getElementById('registerMenuPassword').value
+  const confirmFieldRegistration = document.getElementById('registerMenuConfirm').value
+  if(passwordFieldRegistration === confirmFieldRegistration){
+    let newUser = new Object()
+    newUser.login = loginFieldRegistration;
+    newUser.password = passwordFieldRegistration;
+    console.log(newUser);
+    registerUsersList.push(newUser)
+    document.getElementById('register_menu').style.display = 'none'
+    document.getElementById('sign_menu').style.display = 'flex'
+
+  }
+  return false
+}
+
+function userSign(){
+  const loginFieldSign = document.getElementById('signMenuLogin').value
+  const passwordFieldSign = document.getElementById('signMenuPassword').value
+  let findedLogin = registerUsersList.find(item => item.login === loginFieldSign)
+  if(findedLogin.password === passwordFieldSign){
+    document.getElementById('sign_menu').style.display = 'none'
+    document.getElementById('register_menu').style.display = 'none'
+    document.getElementById('main_messages').style.display = 'flex'
+    onPageLoad(findedLogin.login)
+  }
+}
+
+

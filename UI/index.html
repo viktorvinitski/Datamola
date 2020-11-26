@@ -23,10 +23,8 @@
                         <img src="img/Logo.png" alt="logo">
                     </a>
                 </div>
-                <a href="#!" class="sign_in-link">
-                    <span class="iconify" 
-                        data-inline="false" 
-                        data-icon="clarity:sign-in-line"
+                <a onclick="openSignMenu()" id="sign_in-link" href="#!" class="sign_in-link">
+                    <span class="iconify" data-inline="false" data-icon="clarity:sign-in-line"
                         style="color: #ffffff; font-size: 24px;"></span>
                 </a>
             </header>
@@ -34,8 +32,26 @@
             <!-- Header end -->
 
             <!-- Main content start -->
+            <section id="sign_menu" class="sign_menu">
+                <div class="form_wrapper">
+                    <input id='signMenuLogin'  type="text" placeholder="Login">
+                    <input id="signMenuPassword" type="password" placeholder="Password">
+                    <button onclick="userSign()" class="sign_button">Sign in</button>
+                    <a onclick="openRegisterMenu()" class="sign_link" href="#!">Register now!</a>
+                </div>
+            </section>
 
-            <section class="main_messages">
+            <section id="register_menu" class="register_menu">
+                <div class="form_wrapper">
+                    <input id='registerMenuLogin' type="text" placeholder="Login">
+                    <input id='registerMenuPassword' type="password" placeholder="Password">
+                    <input id='registerMenuConfirm' type="password" placeholder="Confirm password">
+                    <button onclick="userRegistration()" class="register_button">Register!</button>
+                </div>
+            </section>
+
+
+            <section id="main_messages" class="main_messages">
                 <div id="sider" class="sider">
                     <div class="close_button">
                         <button onclick="closeUserMenu()" class="close_button-item">
@@ -46,10 +62,10 @@
                         <div class="user_photo"></div>
                         <div id="user_name" class="user_name"></div>
                     </div>
-                    
+
                     <div class="users_online-search">
                         <div class="users_online-search_area">
-                            <input onfocus="this.value=''" onblur="this.value='Find by name...'"
+                            <input placeholder='Find by name...'
                                 class="users_online-search_input" type="text" value="Find by name...">
                             <div class="users_online-search_underline"></div>
                         </div>
@@ -60,50 +76,7 @@
                     </div>
 
                     <div id="users" class="users_online">
-                        <!-- <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Cristiano Ronaldo</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Leo Messi</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Bruno Fernandes</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Harry Kane</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Dele Alli</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Wayne Rooney</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Harry Maguire</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">David De Gea</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Paul Pogba</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Donny van de Beek</div>
-                        </div>
-                        <div class="user_online">
-                            <div class="user_online-photo"></div>
-                            <div class="user_online-name">Ronaldinho</div>
-                        </div> -->
+
 
                     </div>
                 </div>
@@ -117,147 +90,32 @@
                         </div>
                         <div class="search_areas">
                             <div class="search_area">
-                                <input onfocus="this.value=''" onblur="this.value='Find by text...'"
-                                    class="search_input" type="text" value="Find by text...">
+                                <input id="findByText" placeholder="Find by text..."
+                                    class="search_input" type="text">
                                 <div class="search_underline"></div>
                             </div>
                             <div class="search_area">
-                                <input onfocus="this.value=''" onblur="this.value='Find by username...'"
-                                    class="search_input" type="text" value="Find by username...">
+                                <input id="findByUsername" placeholder="Find by username..."
+                                    class="search_input" type="text">
                                 <div class="search_underline"></div>
                             </div>
                             <div class="search_area">
-                                <input onfocus="this.value=''" onblur="this.value='Find by date...'"
-                                    class="search_input" type="text" value="Find by date...">
+                                <input id="findByDate" placeholder="Find by date..."
+                                    class="search_input" type="text" >
                                 <div class="search_underline"></div>
                             </div>
+                            <button onclick="activateFilter()" class="search_button">
+                                <span class="iconify" data-inline="false" data-icon="ic:twotone-find-replace"
+                                    style="font-size: 24px; color: #e2bef3"></span>
+                            </button>
                         </div>
                     </div>
                     <div class="messages_download-button">
-                        <button onclick="alert('Click!')" class="messages_download-button_item">
+                        <button onclick="loadMessages()" class="messages_download-button_item">
                             <img src="img/Download messages button.png" alt="Download messages button">
                         </button>
                     </div>
                     <div id="messages_area" class="messages_area">
-                        <!-- <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        <!-- </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="messages_area-incoming">
-                            <div class="messages_area-incoming_item">
-                                <div class="incoming_item-photo"></div>
-                                <div class="incoming_item-message">
-                                    <div class="incoming_item-message_adressee">Leo Messi</div>
-                                    <div class="incoming_item-message_text">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a
-                                        <div class="incoming_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="messages_area-outgoing">
-                            <div class="messages_area-outgoing_item">
-                                <div class="outgoing_item-message">
-                                    <div class="outgoing_item-message_adressee">You</div>
-                                    <div class="outgoing_item-message_text">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknow
-                                        <div class="message_buttons">
-                                            <button class="message_edit-button">
-                                                <span class="iconify" data-inline="false"
-                                                    data-icon="ant-design:edit-filled"
-                                                    style="color: #d89ff2; font-size: 16px;"></span>
-                                            </button>
-                                            <button class="message_delete-button">
-                                                <span class="iconify" data-inline="false"
-                                                    data-icon="ant-design:delete-filled"
-                                                    style="color: #d89ff2; font-size: 16px;"></span>
-                                            </button>
-                                        </div>
-                                        <div class="outgoing_item-message_date">01.10.2020</div>
-                                    </div>
-                                </div>
-                                <div class="outgoing_item-photo"></div>
-                            </div>
-                        </div> -->
-
                     </div>
                     <div class="send_message">
 
@@ -266,9 +124,9 @@
                         </button>
                         <div class="send_message-form">
                             <div class="send_message-description">send to all</div>
-                            <input type="text">
+                            <input id="newMessage" type="text">
                         </div>
-                        <button onclick="alert('Click!')" class="send_message-send_button">
+                        <button onclick="addNewMessage()" class="send_message-send_button">
                             <img src="img/Send button.png" alt="Send button">
                         </button>
                     </div>
@@ -299,7 +157,7 @@
 
     <!-- <script src="js/store.js"></script> -->
     <script src="js/index.js"></script>
-    <script src="js/classes.js"></script>
+    <script onload="onPageLoad()" src="js/classes.js"></script>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 
