@@ -11,7 +11,7 @@
     <title>Datamola chat</title>
 </head>
 
-<body>
+<body onload="onPageLoad()">
     <div class="container">
         <main class="main">
 
@@ -34,7 +34,7 @@
             <!-- Main content start -->
             <section id="sign_menu" class="sign_menu">
                 <div class="form_wrapper">
-                    <input id='signMenuLogin'  type="text" placeholder="Login">
+                    <input id='signMenuLogin' type="text" placeholder="Login">
                     <input id="signMenuPassword" type="password" placeholder="Password">
                     <button onclick="userSign()" class="sign_button">Sign in</button>
                     <a onclick="openRegisterMenu()" class="sign_link" href="#!">Register now!</a>
@@ -65,8 +65,8 @@
 
                     <div class="users_online-search">
                         <div class="users_online-search_area">
-                            <input placeholder='Find by name...'
-                                class="users_online-search_input" type="text" value="Find by name...">
+                            <input placeholder='Find by name...' class="users_online-search_input" type="text"
+                                placeholder="Find by name...">
                             <div class="users_online-search_underline"></div>
                         </div>
                     </div>
@@ -74,9 +74,9 @@
                         <button onclick="showAllUsers()" class="user_button">All users</button>
                         <button onclick="showActiveUsers()" class="user_button">Online users</button>
                     </div>
-
+                    <div onclick="mainChatOpen()"  class="main_chat">Main chat</div>
                     <div id="users" class="users_online">
-
+                        
 
                     </div>
                 </div>
@@ -90,23 +90,28 @@
                         </div>
                         <div class="search_areas">
                             <div class="search_area">
-                                <input id="findByText" placeholder="Find by text..."
+                                <input onchange="activateFilter()" id="findByText" placeholder="Find by text..."
                                     class="search_input" type="text">
                                 <div class="search_underline"></div>
                             </div>
                             <div class="search_area">
-                                <input id="findByUsername" placeholder="Find by username..."
+                                <input onchange="activateFilter()" id="findByUsername" placeholder="Find by username..."
                                     class="search_input" type="text">
                                 <div class="search_underline"></div>
                             </div>
                             <div class="search_area">
-                                <input id="findByDate" placeholder="Find by date..."
-                                    class="search_input" type="text" >
+                                <input onchange="activateFilter()" id="findByDateFrom" placeholder="From..."
+                                    class="search_input" type="text">
                                 <div class="search_underline"></div>
                             </div>
-                            <button onclick="activateFilter()" class="search_button">
-                                <span class="iconify" data-inline="false" data-icon="ic:twotone-find-replace"
-                                    style="font-size: 24px; color: #e2bef3"></span>
+                            <div class="search_area">
+                                <input onchange="activateFilter()" id="findByDateTo" placeholder="To..."
+                                    class="search_input" type="text">
+                                <div class="search_underline"></div>
+                            </div>
+                            <button onclick="cleanFilter()" class="search_button">
+                                <span class="iconify" data-inline="false" data-icon="carbon:clean"
+                                    style="font-size: 24px; color: #e2bef3;"></span>
                             </button>
                         </div>
                     </div>
@@ -123,7 +128,7 @@
                             <img src="img/Clip button.png" alt="Clip button">
                         </button>
                         <div class="send_message-form">
-                            <div class="send_message-description">send to all</div>
+                            <div id="sendTo" class="send_message-description">send to all</div>
                             <input id="newMessage" type="text">
                         </div>
                         <button onclick="addNewMessage()" class="send_message-send_button">
