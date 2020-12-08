@@ -502,25 +502,19 @@ class MessageModel {
     return this._messages.find((item) => item.id === id);
   }
   add(msg) {
-    if (MessageModel.validate(msg) && this._user !== 'Guest') {
-      msg.id = idGenerator();
-      msg.createdAt = date;
-      msg.author = this._user;
+    if(!MessageModel.validate(msg)){
+      return false;
+    }
+    msg.id = idGenerator();
+    msg.createdAt = date;
+    msg.author = this._user;
+    if(!mainChatOpened){
       msg.to = this._companion
-      this._messages.push(new Message(msg));
-      this.save();
-      return true;
     }
-    if(mainChatOpened === true){
-      msg.id = idGenerator();
-      msg.createdAt = date;
-      msg.author = this._user;
-      msg.isPersonal = false
-      this._messages.push(new Message(msg));
-      this.save();
-      return true;
-    }
-    return false;
+    msg.isPersonal = !mainChatOpened
+    this._messages.push(new Message(msg));
+    this.save();
+    return true;
   }
   edit(id, msg) {
     let index = this._messages.findIndex((item) => +item.id === id);
@@ -614,7 +608,7 @@ class MessagesView {
       .map((msg) => this.getMessageHTML(msg))
       .join("");
   }
-  getMessageHTML({ text, author, createdAt, to, id, isPersonal }) {
+  getMessageHTML({ text, author, createdAt, id, isPersonal }) {
     if (author === messageList._user) {
       return `
           <div class="messages_area-outgoing">
@@ -687,15 +681,15 @@ class PersonalUsersView {
   constructor(containerId) {
     this.containerId = containerId;
   }
-  display() {
+  display(users) {
     if (!this.container) {
       this.container = document.getElementById(this.containerId);
     }
-    this.container.innerHTML = userList.users
+    this.container.innerHTML = users
       .map((user) => this.getUsersHTML(user))
       .join("");
   }
-  getUsersHTML(name) {
+  getUsersHTML({name}) {
     if(name){
     return `
       <div id='userOnline' class="user_online">
@@ -744,22 +738,30 @@ const setCurrentUser = (user) => {
   headerView.display({ currentUser: user });
 };
 
-const showMessages = (skip, top, { author, dateFrom, dateTo, text, isPersonal } = {}) => {
-  let msgs = messageList.getPage(skip, top, { author, dateFrom, dateTo, text, isPersonal });
+const showMessages = async (skip, top) => {
+  let msgs = await API.getMessages(skip, top);
   messagesView.display(msgs);
 };
 
-const showAllUsers = () => {
-  allUsers.display();
+const showAllUsers = async () => {
+  const users = await API.getUsers()
+  allUsers.display(users);
 };
 
 const showActiveUsers = () => {
   activeUsers.display();
 };
 
-const addMessage = (msg) => {
-  messageList.add(msg);
-  showMessages(0, 10);
+const addMessage = async () => {
+  let newMessage = document.getElementById('newMessage').value;
+  let msg = {
+    text: newMessage,
+    isPersonal: true,
+    to: 'dimas',
+    author: messageList._user,
+  }
+  await API.sendMessage(msg)
+  showMessages(0, 10, {isPersonal: false});
 };
 
 const editMessage = (id, msg) => {
@@ -800,30 +802,37 @@ const cleanFilter = () => {
   showMessages(0,defaultMessage, {text, author, dateFrom, dateTo})
 }
 
-const addNewMessage = () => {
-  if(mainChatOpened === true){
-    let newMessage = document.getElementById('newMessage').value;
-    addMessage({ text: newMessage, isPersonal: false })
-    showMessages(0,10, {isPersonal: false})
-    document.getElementById('newMessage').value = ''
-    let messageArea = document.getElementById('messages_area');
-    messageArea.scrollTop = messageArea.scrollHeight
-  }
-  if(mainChatOpened === false){
-    let newMessage = document.getElementById('newMessage').value;
-    addMessage({ text: newMessage, isPersonal: true })
-    showMessages(0,10, {isPersonal: true})
-    document.getElementById('newMessage').value = ''
-    let messageArea = document.getElementById('messages_area');
-    messageArea.scrollTop = messageArea.scrollHeight
-  }
-}
+// const addNewMessage = () => {
+//   // TODO: объединить в один метод
+//   if(mainChatOpened === true){
+//     let newMessage = document.getElementById('newMessage').value;
+//     addMessage({ text: newMessage, isPersonal: false })
+//     showMessages(0,10, {isPersonal: false})
+//     document.getElementById('newMessage').value = ''
+//     let messageArea = document.getElementById('messages_area');
+//     messageArea.scrollTop = messageArea.scrollHeight
+//   }
+//   if(mainChatOpened === false){
+//     let newMessage = document.getElementById('newMessage').value;
+//     addMessage({ text: newMessage, isPersonal: true })
+//     showMessages(0,10, {isPersonal: true})
+//     document.getElementById('newMessage').value = ''
+//     let messageArea = document.getElementById('messages_area');
+//     messageArea.scrollTop = messageArea.scrollHeight
+//   }
+// }
 
-const userRegistration = () => {
+const userRegistration = async () => {
   const login = document.getElementById('registerMenuLogin').value
   const password = document.getElementById('registerMenuPassword').value
   const confirmPassword = document.getElementById('registerMenuConfirm').value
   if(password === confirmPassword){
+    try{
+      await API.registerUser({name: login, pass: password})
+    }catch{
+      console.error('Error register')
+      return
+    }
     let newUser = {login, password}
     registerUsersList.push(newUser)
     userList.users.push(newUser.login)
@@ -835,13 +844,19 @@ const userRegistration = () => {
   return false
 }
 
-const userSign = () => {
-  const loginFieldSign = document.getElementById('signMenuLogin').value
-  const passwordFieldSign = document.getElementById('signMenuPassword').value
+const userSign = async () => {
+  const login = document.getElementById('signMenuLogin').value
+  const password = document.getElementById('signMenuPassword').value
   const usersData = localStorage.getItem(USERS_LOCALSTORAGE_KEY)
   let data = JSON.parse(usersData)
-  let findedLogin = data.find(item => item.login === loginFieldSign)
-  if(findedLogin.password === passwordFieldSign){
+  let findedLogin = data.find(item => item.login === login)
+  if(findedLogin.password === password){
+    try{
+      await API.loginUser({name: login, pass: password})
+    }catch{
+      console.error('Error sign')
+      return
+    }
     document.getElementById('sign_menu').style.display = 'none'
     document.getElementById('register_menu').style.display = 'none'
     document.getElementById('main_messages').style.display = 'flex'
@@ -890,6 +905,7 @@ const privateMessageOpen = (user) => {
 function onPageLoad() {
   showActiveUsers();
   showAllUsers();
+  showMessages(0,30)
   setCurrentUser('Guest');
-  getUsersFromLocalStorage()
+  // getUsersFromLocalStorage()
 }
