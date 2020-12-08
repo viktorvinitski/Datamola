@@ -48,6 +48,7 @@ class ChatApiService {
       .catch((error) => console.log("error", error));
   };
 
+
   sendMessage ({ text, isPersonal, to, author }) {
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
