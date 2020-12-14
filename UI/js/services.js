@@ -7,7 +7,16 @@ class ChatApiService {
     const body = new FormData();
     body.append("name", name);
     body.append("pass", pass);
-    return fetch(`${this.host}auth/register`, { method: "POST", body });
+    return fetch(`${this.host}auth/register`, { method: "POST", body })
+      .then(data => {
+        if(data.status === 409){
+          openErrorPage()
+          setTimeout(() => alert('Пользователь с таким именем уже существует'), 1000 )
+        }
+        else{
+          document.getElementById("sign_menu").style.display = "flex";
+        }
+      });
   };
 
   loginUser ({ name, pass }) {
@@ -34,7 +43,7 @@ class ChatApiService {
       .catch((error) => console.log("error", error));
   };
 
-  getMessages (skip, top) {
+  getMessages (params) {
     let myHeaders = new Headers();
     myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
     let requestOptions = {
@@ -42,54 +51,58 @@ class ChatApiService {
       headers: myHeaders,
       redirect: "follow",
     };
-    return fetch(`${this.host}messages?skip=${skip}&top=${top}`, requestOptions)
+    const searchParams = new URLSearchParams(Object.entries(params).filter((_, v) => !!v));
+    return fetch(`${this.host}messages?${searchParams}`, requestOptions)
       .then((response) => response.json())
       .then((result) => result)
       .catch((error) => console.log("error", error));
+      // &author=${author}&dateFrom=${dateFrom}&dateTo=${dateTo}&text=${text}
   };
 
-
-  sendMessage ({ text, isPersonal, to, author }) {
+  sendMessage ({ text, isPersonal, author }) {
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-    const body = {text, isPersonal, to, author};
+    headers.append('Content-Type', 'application/json;charset=utf-8')
+    const data = { text, isPersonal, author };
     let requestOptions = {
       method: "POST",
       headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
       redirect: "follow",
     };
     return fetch(`${this.host}messages`, requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .catch((error) => console.log("error", error));
   };
 
-  editMessage(){
+  changeMessage(id, { text, isPersonal, author }){
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-    const body = {text, isPersonal, to};
+    headers.append('Content-Type', 'application/json;charset=utf-8')
+    const body = { text, isPersonal, author }
     let requestOptions = {
       method: "PUT",
       headers,
       body: JSON.stringify(body),
       redirect: "follow",
     };
-    return fetch(`${this.host}message`, requestOptions)
-      .then((response) => response.text())
+    return fetch(`${this.host}messages/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => result)
       .catch((error) => console.log("error", error));
   }
 
-  deleteMessage(){
-    var headers = new Headers();
+  deleteMessage(id){
+    const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     let requestOptions = {
       method: 'DELETE',
       headers,
       redirect: 'follow'
     };
-    return fetch("/message/123", requestOptions)
+    return fetch(`${this.host}messages/${id}`, requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => result)
       .catch(error => console.log('error', error));
       }
 }
