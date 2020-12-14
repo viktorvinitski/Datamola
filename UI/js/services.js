@@ -46,36 +46,39 @@ class ChatApiService {
       .then((response) => response.json())
       .then((result) => result)
       .catch((error) => console.log("error", error));
+      // &author=${author}&dateFrom=${dateFrom}&dateTo=${dateTo}&text=${text}
   };
 
-
-  sendMessage ({ text, isPersonal, to, author }) {
+  sendMessage ({ text, isPersonal, author }) {
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-    const body = {text, isPersonal, to, author};
+    headers.append('Content-Type', 'application/json;charset=utf-8')
+    const data = { text, isPersonal, author };
     let requestOptions = {
       method: "POST",
       headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
       redirect: "follow",
     };
     return fetch(`${this.host}messages`, requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .catch((error) => console.log("error", error));
   };
 
-  editMessage(){
+  changeMessage(id, { text, isPersonal, author }){
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-    const body = {text, isPersonal, to};
+    headers.append('Content-Type', 'application/json;charset=utf-8')
+    const body = { text, isPersonal, author }
     let requestOptions = {
       method: "PUT",
       headers,
       body: JSON.stringify(body),
       redirect: "follow",
     };
-    return fetch(`${this.host}message`, requestOptions)
-      .then((response) => response.text())
+    return fetch(`${this.host}messages/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => result)
       .catch((error) => console.log("error", error));
   }
 
