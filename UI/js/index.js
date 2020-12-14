@@ -29,6 +29,7 @@ function returnToChat() {
   document.getElementById("register_menu").style.display = "none";
   document.getElementById("main_messages").style.display = "flex";
   document.getElementById("return_button").style.display = "none";
+  document.getElementById("error_page").style.display = "none";
   document.getElementById("header").innerHTML = `
     <div class="logo">
     <a href="#!" class="logo_item">
@@ -57,4 +58,9 @@ function openRegisterMenu() {
     <span class="iconify" data-inline="false" data-icon="ic:sharp-keyboard-return" style="font-size: 24px; color: white;"></span>
     </a>
     `;
+}
+
+function openErrorPage(){
+  document.getElementById("register_menu").style.display = "none";
+  document.getElementById('error_page').style.display = 'flex'
 }

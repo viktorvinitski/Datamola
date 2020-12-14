@@ -7,7 +7,16 @@ class ChatApiService {
     const body = new FormData();
     body.append("name", name);
     body.append("pass", pass);
-    return fetch(`${this.host}auth/register`, { method: "POST", body });
+    return fetch(`${this.host}auth/register`, { method: "POST", body })
+      .then(data => {
+        if(data.status === 409){
+          openErrorPage()
+          setTimeout(() => alert('Пользователь с таким именем уже существует'), 1000 )
+        }
+        else{
+          document.getElementById("sign_menu").style.display = "flex";
+        }
+      });
   };
 
   loginUser ({ name, pass }) {
@@ -34,7 +43,7 @@ class ChatApiService {
       .catch((error) => console.log("error", error));
   };
 
-  getMessages (skip, top) {
+  getMessages (params) {
     let myHeaders = new Headers();
     myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
     let requestOptions = {
@@ -42,7 +51,8 @@ class ChatApiService {
       headers: myHeaders,
       redirect: "follow",
     };
-    return fetch(`${this.host}messages?skip=${skip}&top=${top}`, requestOptions)
+    const searchParams = new URLSearchParams(Object.entries(params).filter((_, v) => !!v));
+    return fetch(`${this.host}messages?${searchParams}`, requestOptions)
       .then((response) => response.json())
       .then((result) => result)
       .catch((error) => console.log("error", error));
@@ -82,17 +92,17 @@ class ChatApiService {
       .catch((error) => console.log("error", error));
   }
 
-  deleteMessage(){
-    var headers = new Headers();
+  deleteMessage(id){
+    const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     let requestOptions = {
       method: 'DELETE',
       headers,
       redirect: 'follow'
     };
-    return fetch("/message/123", requestOptions)
+    return fetch(`${this.host}messages/${id}`, requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => result)
       .catch(error => console.log('error', error));
       }
 }
