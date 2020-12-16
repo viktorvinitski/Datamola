@@ -144,6 +144,12 @@ const showActiveUsers = async () => {
   allUsers.display(users.filter((user) => user.isActive));
 };
 
+const findUser = async () => {
+  const users = await API.getUsers();
+  const username = document.getElementById('findUser').value
+  allUsers.display(users.filter((user) => user.name.toLowerCase().includes(username.toLowerCase())))
+}
+
 const addMessage = async () => {
   let newMessage = document.getElementById("newMessage").value;
   const msg = {
@@ -151,9 +157,14 @@ const addMessage = async () => {
     isPersonal: false,
     author: currentLogin,
   };
-  await API.sendMessage(msg);
-  document.getElementById("newMessage").value = "";
-  showMessages({ skip: 0, top: defaultMessage, isPersonal: false });
+  if(currentLogin !== 'Guest'){
+    await API.sendMessage(msg);
+    document.getElementById("newMessage").value = "";
+    showMessages({ skip: 0, top: defaultMessage, isPersonal: false });
+  }else{
+    alert("Необходимо авторизироваться!");
+    document.getElementById("newMessage").value = "";
+  }
 };
 
 const editMessage = async (id) => {
@@ -173,11 +184,15 @@ const removeMessage = async (id) => {
 };
 
 const activateFilter = () => {
-  let text = document.getElementById("findByText").value;
-  let author = document.getElementById("findByUsername").value;
-  let dateFrom = document.getElementById("findByDateFrom").value;
-  let dateTo = document.getElementById("findByDateTo").value;
-  showMessages({ skip: 0, top, text, author, dateFrom, dateTo });
+  if(currentLogin !== "Guest"){
+    const text = document.getElementById("findByText").value;
+    const author = document.getElementById("findByUsername").value;
+    const dateFrom = document.getElementById("findByDateFrom").value;
+    const dateTo = document.getElementById("findByDateTo").value;
+    showMessages({ skip: 0, top, text, author, dateFrom, dateTo });
+  }else{
+    alert("Необходимо авторизироваться!")
+  }
 };
 
 const cleanFilter = () => {
@@ -252,16 +267,20 @@ const userSign = async () => {
 };
 
 const loadMessages = (skip, top) => {
-  if (defaultMessage === 0) {
+  if(currentLogin !== "Guest"){
+    if (defaultMessage === 0) {
+      defaultMessage += 10;
+      showMessages({ skip, top: defaultMessage });
+      let messageArea = document.getElementById("messages_area");
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }
     defaultMessage += 10;
     showMessages({ skip, top: defaultMessage });
-    let messageArea = document.getElementById("messages_area");
-    messageArea.scrollTop = messageArea.scrollHeight;
-  }
-  defaultMessage += 10;
-  showMessages({ skip, top: defaultMessage });
-  console.log(defaultMessage);
-};
+    console.log(defaultMessage);
+    }else{
+      alert("Необходимо авторизироваться!")
+    }
+}
 
 const mainChatOpen = () => {
   showMessages({ skip: 0, top: 10, isPersonal: false });
